@@ -21,7 +21,6 @@ export const character: Character = {
 
   plugins: [
     '@elizaos/plugin-sql',
-    '@elizaos/plugin-discord',
     '@elizaos/plugin-bootstrap'
   ],
 
