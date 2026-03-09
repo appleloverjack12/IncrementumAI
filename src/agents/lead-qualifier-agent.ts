@@ -39,18 +39,6 @@ export const character: Character = {
     "Lead routing and prioritization strategies"
   ],
 
-  messageExamples: [
-    [
-      {
-        user: "{{user1}}",
-        content: { text: "Qualify this lead: German SaaS, 50 employees, €5M ARR, reached out via cold email" }
-      },
-      {
-        user: "LeadQualifierAgent",
-        content: { text: "**Lead Score: 85/100 (High Priority)**\n\n**BANT Analysis:**\n✅ **Budget:** €5M ARR suggests €50-100K budget for expansion tools (10-20% of revenue)\n✅ **Authority:** Outbound interest = decision-maker engagement\n✅ **Need:** SaaS expansion = clear use case for our platform\n⚠️ **Timeline:** Unknown - requires discovery call\n\n**Fit Assessment:**\n- Company size: Perfect (50-200 is sweet spot)\n- Market: DACH = our target geography\n- Sector: SaaS = high LTV, low churn\n\n**Recommended Actions:**\n1. **Immediate:** Schedule 30-min discovery call within 48h\n2. **Prep:** Research their current expansion efforts (LinkedIn, press)\n3. **Pitch angle:** DACH market expertise + AI automation ROI\n4. **Success metric:** Qualified opportunity = budget confirmed + 90-day timeline\n\n**Estimated Close Probability:** 35-40% (based on similar profiles)" }
-      }
-    ]
-  ],
 
   style: {
     all: [

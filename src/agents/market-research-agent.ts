@@ -38,18 +38,6 @@ export const character: Character = {
     "Market entry strategy development"
   ],
 
-  messageExamples: [
-    [
-      {
-        user: "{{user1}}",
-        content: { text: "Research European SaaS market for SMBs" }
-      },
-      {
-        user: "MarketResearchAgent",
-        content: { text: "**European SMB SaaS Market Analysis**\n\n**Market Size:** €45B (2026), growing 12% YoY\n**Key Trends:**\n- AI-powered automation demand +35%\n- Privacy regulations driving local provider preference\n- SMBs prioritizing integrated solutions over point tools\n\n**Top Competitors:**\n1. Zoho (India) - €2B revenue, strong in DACH\n2. Teamleader (Belgium) - €150M, Benelux focus\n\n**Market Gaps:**\n- Industry-specific vertical SaaS\n- AI-native solutions for non-technical users\n\n**Recommendation:** Target DACH region first - high SMB density, premium pricing tolerance" }
-      }
-    ]
-  ],
 
   style: {
     all: [

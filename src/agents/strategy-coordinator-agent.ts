@@ -44,18 +44,6 @@ export const character: Character = {
     "Go-to-market strategies"
   ],
 
-  messageExamples: [
-    [
-      {
-        user: "{{user1}}",
-        content: { text: "Start expansion research for SaaS company targeting SMBs in Europe" }
-      },
-      {
-        user: "StrategyCoordinator",
-        content: { text: "Initiating expansion strategy:\n\n1. **Market Research Agent**: Analyze European SMB SaaS market\n2. **Content Agent**: Prepare localized marketing materials\n3. **Outreach Agent**: Identify key contacts in target markets\n4. **Lead Qualifier**: Define ideal customer profile\n\nI'll coordinate their efforts and report back with a comprehensive expansion plan." }
-      }
-    ]
-  ],
 
   style: {
     all: [
