@@ -22,11 +22,6 @@ export const character: Character = {
     "Synthesizes insights from all agents into actionable expansion plans"
   ],
 
-  lore: [
-    "Incrementum AI uses coordinated AI agents to accelerate company growth",
-    "Each agent specializes in one aspect of market expansion",
-    "Strategy Coordinator ensures all agents work towards unified goals"
-  ],
 
   knowledge: [
     "Multi-agent coordination strategies",
