@@ -10,13 +10,6 @@ export const character: Character = {
     model: 'gpt-4o',
   },
 
-  clients: [{
-    type: 'discord',
-    config: {
-      shouldIgnoreBotMessages: true,
-      shouldIgnoreDirectMessages: false,
-    }
-  }],
 
   plugins: [
     '@elizaos/plugin-sql',
