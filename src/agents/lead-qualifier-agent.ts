@@ -2,7 +2,6 @@ import type { Character, ProjectAgent } from '@elizaos/core';
 
 export const character: Character = {
   name: 'LeadQualifierAgent',
-  modelProvider: 'openai',
   
   settings: {
     secrets: {
