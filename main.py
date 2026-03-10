@@ -7,14 +7,64 @@ import os
 from dotenv import load_dotenv
 from pydantic import BaseModel, EmailStr
 from tools.email_sender import send_outreach_email
+from tools.crm_service import save_lead_to_crm, get_all_leads
 
 load_dotenv()
 
 app = FastAPI(title="IncrementumAI - Agent Workplace")
+class FullWorkflowRequest(BaseModel):
+    market: str
+    industry: str
+    company_description: str = ""
 
+@app.post("/api/full-workflow")
+async def run_full_workflow(request: FullWorkflowRequest):
+    """
+    Execute complete multi-agent expansion workflow
+    """
+    try:
+        result = crew.full_expansion_workflow(
+            market=request.market,
+            industry=request.industry,
+            company_description=request.company_description
+        )
+        return {"success": True, "result": result}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 # Kreiraj crew instancu
 crew = IncrementumCrew()
+class SaveLeadRequest(BaseModel):
+    lead_info: str
+    qualification_report: str
+    market: str = None
+    industry: str = None
 
+@app.post("/api/save-to-crm")
+async def save_to_crm(request: SaveLeadRequest):
+    """
+    Save qualified lead to CRM database
+    """
+    try:
+        result = save_lead_to_crm(
+            lead_info=request.lead_info,
+            qualification_report=request.qualification_report,
+            market=request.market,
+            industry=request.industry
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/leads")
+async def list_leads(status: str = None, min_score: int = 0):
+    """
+    Get all leads from CRM
+    """
+    try:
+        result = get_all_leads(status=status, min_score=min_score)
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 # Request models
 class ExpansionRequest(BaseModel):
     market: str

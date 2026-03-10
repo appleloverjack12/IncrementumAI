@@ -40,14 +40,14 @@ class IncrementumCrew:
             description=f"Based on market research, create comprehensive expansion strategy for {industry} company entering {market}",
             expected_output="Detailed expansion plan with timeline, budget estimates, and key actions",
             agent=self.strategy_coordinator,
-            context=[research_task]  # Koristi research rezultate
+            context=[research_task]
         )
         
         # Kreiraj Crew
         crew = Crew(
             agents=[self.market_researcher, self.strategy_coordinator],
             tasks=[research_task, strategy_task],
-            process=Process.sequential,  # Sequential execution
+            process=Process.sequential,
             verbose=2
         )
         
@@ -117,3 +117,76 @@ class IncrementumCrew:
         )
         
         return crew.kickoff()
+    
+    def full_expansion_workflow(self, market, industry, company_description=""):
+        """
+        Complete expansion workflow - all agents collaborate
+        """
+        # Task 1: Market Research
+        research_task = Task(
+            description=self.task_configs['market_research_task']['description'].format(
+                market=market,
+                industry=industry
+            ),
+            expected_output=self.task_configs['market_research_task']['expected_output'],
+            agent=self.market_researcher
+        )
+        
+        # Task 2: Strategy Plan
+        strategy_task = Task(
+            description=f"Based on market research, create comprehensive expansion strategy for {industry} company entering {market}. {company_description}",
+            expected_output="Detailed expansion plan with timeline, budget estimates, and key actions",
+            agent=self.strategy_coordinator,
+            context=[research_task]
+        )
+        
+        # Task 3: Content Creation
+        content_task = Task(
+            description=f"Create blog post about '{industry} expansion opportunities in {market}' based on the market research and strategy.",
+            expected_output="SEO-optimized blog post with market insights",
+            agent=self.content_creator,
+            context=[research_task, strategy_task]
+        )
+        
+        # Task 4: Outreach Template
+        outreach_task = Task(
+            description=f"Draft outreach email template for {industry} decision-makers in {market}, highlighting the expansion opportunities identified in the research.",
+            expected_output="Personalized outreach email template",
+            agent=self.outreach_specialist,
+            context=[research_task, strategy_task]
+        )
+        
+        # Task 5: ICP Definition
+        icp_task = Task(
+            description=f"Based on market research, define the Ideal Customer Profile for {industry} companies expanding to {market}. Include BANT criteria.",
+            expected_output="Detailed ICP with qualification criteria",
+            agent=self.lead_qualifier,
+            context=[research_task, strategy_task]
+        )
+        
+        # Create crew with all agents
+        crew = Crew(
+            agents=[
+                self.market_researcher,
+                self.strategy_coordinator,
+                self.content_creator,
+                self.outreach_specialist,
+                self.lead_qualifier
+            ],
+            tasks=[research_task, strategy_task, content_task, outreach_task, icp_task],
+            process=Process.sequential,
+            verbose=2
+        )
+        
+        # Execute workflow
+        result = crew.kickoff()
+        
+        # Parse results
+        return {
+            "research": str(research_task.output) if hasattr(research_task, 'output') else "Research completed",
+            "strategy": str(strategy_task.output) if hasattr(strategy_task, 'output') else "Strategy created",
+            "content": str(content_task.output) if hasattr(content_task, 'output') else "Content created",
+            "outreach": str(outreach_task.output) if hasattr(outreach_task, 'output') else "Outreach template created",
+            "icp": str(icp_task.output) if hasattr(icp_task, 'output') else "ICP defined",
+            "full_result": str(result)
+        }

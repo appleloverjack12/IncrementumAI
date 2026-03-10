@@ -370,6 +370,10 @@
                     <h4>📧 Draft Outreach</h4>
                     <p>Personalized messaging</p>
                 </div>
+                <div class="agent-card" onclick="showWorkflow('full-workflow')">
+                    <h4>🔄 Full Workflow</h4>
+                    <p>All agents collaborate</p>
+                </div>
 
                 <div class="agent-card" onclick="showWorkflow('content')">
                     <h4>✍️ Create Content</h4>
@@ -380,8 +384,11 @@
                     <h4>🎯 Qualify Lead</h4>
                     <p>Lead scoring & prioritization</p>
                 </div>
+                <div class="agent-card" onclick="showWorkflow('leads')">
+                    <h4>📋 View Leads</h4>
+                    <p>CRM dashboard</p>
+                </div>
             </div>
-
             <div class="content">
                 <!-- Expansion Plan Workflow -->
                 <div id="expansion" class="workflow-section active">
@@ -521,16 +528,166 @@
                     <div class="result" id="qualify-result">
                         <h3>Lead Qualification Report</h3>
                         <pre id="qualify-output"></pre>
+
+                        <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #e0e0e0;">
+                            <button onclick="saveToCRM()" style="background: #17a2b8;">💾 Save to CRM</button>
+                            <div id="crm-status" style="margin-top: 10px; font-weight: 600;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="leads" class="workflow-section">
+                    <h2>CRM Dashboard</h2>
+                    <p>View and manage qualified leads saved to your CRM.</p>
+
+                    <div class="form-group">
+                        <label>Filter by Minimum Score</label>
+                        <input type="number" id="filter-score" value="0" min="0" max="100" placeholder="0-100">
+                    </div>
+
+                    <button onclick="loadLeads()">🔄 Refresh Leads</button>
+
+                    <div id="leads-list" style="margin-top: 20px;"></div>
+                    </div>
+                    <!-- Full Multi-Agent Workflow -->
+                    <div id="full-workflow" class="workflow-section">
+                        <h2>Complete Expansion Workflow</h2>
+                        <p>All 5 agents will collaborate on your expansion plan.</p>
+
+                        <div class="form-group">
+                            <label>Target Market</label>
+                            <input type="text" id="full-market" placeholder="e.g., France, Nordics">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Industry</label>
+                            <input type="text" id="full-industry" placeholder="e.g., Fintech, Healthcare SaaS">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Company Description (optional)</label>
+                            <textarea id="full-company" placeholder="Describe your company and goals..."></textarea>
+                        </div>
+
+                        <button onclick="runFullWorkflow()">🚀 Start Full Workflow</button>
+
+                        <div class="loading" id="full-loading">
+                            <div class="spinner"></div>
+                            <p>All 5 agents are working (this may take 2-3 minutes)...</p>
+                        </div>
+
+                        <div class="result" id="full-result">
+                            <h3>Complete Expansion Package</h3>
+
+                            <div style="margin-bottom: 20px;">
+                                <h4 style="color: #667eea; margin-bottom: 10px;">📊 Market Research</h4>
+                                <pre id="full-research"></pre>
+                            </div>
+
+                            <div style="margin-bottom: 20px;">
+                                <h4 style="color: #667eea; margin-bottom: 10px;">🎯 Expansion Strategy</h4>
+                                <pre id="full-strategy"></pre>
+                            </div>
+
+                            <div style="margin-bottom: 20px;">
+                                <h4 style="color: #667eea; margin-bottom: 10px;">✍️ Marketing Content</h4>
+                                <pre id="full-content"></pre>
+                            </div>
+
+                            <div style="margin-bottom: 20px;">
+                                <h4 style="color: #667eea; margin-bottom: 10px;">📧 Outreach Template</h4>
+                                <pre id="full-outreach"></pre>
+                            </div>
+
+                            <div style="margin-bottom: 20px;">
+                                <h4 style="color: #667eea; margin-bottom: 10px;">🎯 Ideal Customer Profile</h4>
+                                <pre id="full-icp"></pre>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
     <!-- Mobile Menu Button -->
     <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
 
     <script>
+        async function saveToCRM() {
+            const leadInfo = document.getElementById('qualify-info').value;
+            const report = document.getElementById('qualify-output').textContent;
+
+            const statusDiv = document.getElementById('crm-status');
+            statusDiv.innerHTML = '⏳ Saving to CRM...';
+            statusDiv.style.color = '#667eea';
+
+            try {
+                const response = await fetch('/api/save-to-crm', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        lead_info: leadInfo,
+                        qualification_report: report
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    statusDiv.innerHTML = `✅ ${data.message}<br>Company: ${data.company}, Score: ${data.score}`;
+                    statusDiv.style.color = '#28a745';
+                } else {
+                    statusDiv.innerHTML = '❌ ' + data.message;
+                    statusDiv.style.color = '#dc3545';
+                }
+            } catch (error) {
+                statusDiv.innerHTML = '❌ Error: ' + error.message;
+                statusDiv.style.color = '#dc3545';
+            }
+        }
+
+        async function loadLeads() {
+            const minScore = document.getElementById('filter-score').value;
+            const listDiv = document.getElementById('leads-list');
+
+            listDiv.innerHTML = '<p>⏳ Loading leads...</p>';
+
+            try {
+                const response = await fetch(`/api/leads?min_score=${minScore}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    if (data.leads.length === 0) {
+                        listDiv.innerHTML = '<p style="color: #666;">No leads found.</p>';
+                        return;
+                    }
+
+                    let html = `<p style="margin-bottom: 15px; font-weight: 600;">Found ${data.count} leads</p>`;
+
+                    data.leads.forEach(lead => {
+                        const scoreColor = lead.score >= 70 ? '#28a745' : lead.score >= 50 ? '#ffc107' : '#dc3545';
+
+                        html += `
+                    <div style="background: #f8f9fa; padding: 15px; margin-bottom: 10px; border-radius: 8px; border-left: 4px solid ${scoreColor};">
+                        <h4 style="margin-bottom: 5px;">${lead.company}</h4>
+                        <p style="font-size: 0.9em; color: #666; margin-bottom: 8px;">${lead.email || 'No email'}</p>
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap; font-size: 0.85em;">
+                            <span><strong>Score:</strong> ${lead.score}/100</span>
+                            <span><strong>Probability:</strong> ${lead.probability}</span>
+                            <span><strong>Status:</strong> ${lead.status}</span>
+                            <span><strong>Created:</strong> ${lead.created}</span>
+                        </div>
+                    </div>
+                `;
+                    });
+
+                    listDiv.innerHTML = html;
+                } else {
+                    listDiv.innerHTML = `<p style="color: #dc3545;">Error: ${data.message}</p>`;
+                }
+            } catch (error) {
+                listDiv.innerHTML = `<p style="color: #dc3545;">Error: ${error.message}</p>`;
+            }
+        }
         function toggleMobileMenu() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('mobile-open');
@@ -730,6 +887,49 @@
             document.getElementById(`${workflow}-loading`).classList.remove('show');
             document.getElementById(`${workflow}-output`).textContent = text;
             document.getElementById(`${workflow}-result`).classList.add('show');
+        }
+        async function runFullWorkflow() {
+            const market = document.getElementById('full-market').value;
+            const industry = document.getElementById('full-industry').value;
+            const company = document.getElementById('full-company').value;
+
+            if (!market || !industry) {
+                alert('Please fill in market and industry');
+                return;
+            }
+
+            showLoading('full');
+
+            try {
+                const response = await fetch('/api/full-workflow', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        market,
+                        industry,
+                        company_description: company
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    const result = data.result;
+
+                    document.getElementById('full-research').textContent = result.research || 'N/A';
+                    document.getElementById('full-strategy').textContent = result.strategy || 'N/A';
+                    document.getElementById('full-content').textContent = result.content || 'N/A';
+                    document.getElementById('full-outreach').textContent = result.outreach || 'N/A';
+                    document.getElementById('full-icp').textContent = result.icp || 'N/A';
+
+                    document.getElementById('full-loading').classList.remove('show');
+                    document.getElementById('full-result').classList.add('show');
+                } else {
+                    showResult('full', 'Error: ' + (data.detail || 'Unknown error'));
+                }
+            } catch (error) {
+                showResult('full', 'Error: ' + error.message);
+            }
         }
     </script>
 </body>
