@@ -76,6 +76,28 @@ class IncrementumCrew:
         
         return crew.kickoff()
     
+    def create_content(self, content_type, topic, market):
+        """
+        Kreira content
+        """
+        content_task = Task(
+            description=self.task_configs['content_creation_task']['description'].format(
+                content_type=content_type,
+                topic=topic,
+                market=market
+            ),
+            expected_output=self.task_configs['content_creation_task']['expected_output'],
+            agent=self.content_creator
+        )
+        
+        crew = Crew(
+            agents=[self.content_creator],
+            tasks=[content_task],
+            verbose=2
+        )
+        
+        return crew.kickoff()
+    
     def qualify_lead(self, lead_info):
         """
         Kvalificira lead
