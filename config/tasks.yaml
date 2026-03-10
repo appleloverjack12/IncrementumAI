@@ -1,0 +1,45 @@
+market_research_task:
+  description: |
+    Research {market} market for {industry} companies.
+    Analyze market size, trends, competitors, and opportunities.
+    Identify gaps and provide expansion recommendations.
+  expected_output: |
+    Detailed market analysis report including:
+    - Market size and growth trends
+    - Top 5 competitors with analysis
+    - 3-5 specific market gaps/opportunities
+    - Recommended target segments
+
+outreach_task:
+  description: |
+    Draft personalized outreach message for {target_persona} in {market}.
+    Tailor messaging to their industry challenges and needs.
+    Include clear value proposition and call-to-action.
+  expected_output: |
+    Complete outreach message with:
+    - Compelling subject line (email) or opening (LinkedIn)
+    - Personalized body referencing their context
+    - Clear value proposition
+    - Specific call-to-action
+
+content_creation_task:
+  description: |
+    Create {content_type} about {topic} for {market} audience.
+    Optimize for SEO and include cultural localization if needed.
+  expected_output: |
+    Complete content piece with:
+    - SEO-optimized title and headers
+    - Engaging, value-driven content
+    - Localization notes for target market
+    - Distribution recommendations
+
+lead_qualification_task:
+  description: |
+    Evaluate lead: {lead_info}
+    Score using BANT framework and recommend next actions.
+  expected_output: |
+    Lead qualification report with:
+    - BANT score (Budget, Authority, Need, Timeline)
+    - Overall priority score (0-100)
+    - Conversion probability estimate
+    - Recommended next steps
