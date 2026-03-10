@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -10,14 +11,14 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 0;
         }
-        
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -25,7 +26,7 @@
             min-height: 100vh;
             overflow: hidden;
         }
-        
+
         header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -35,17 +36,17 @@
             top: 0;
             z-index: 100;
         }
-        
+
         header h1 {
             font-size: 1.8em;
             margin-bottom: 5px;
         }
-        
+
         header p {
             opacity: 0.9;
             font-size: 0.95em;
         }
-        
+
         .mobile-menu-btn {
             display: none;
             position: fixed;
@@ -58,30 +59,30 @@
             border: none;
             color: white;
             font-size: 24px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             cursor: pointer;
             z-index: 1000;
         }
-        
+
         .main {
             display: grid;
             grid-template-columns: 280px 1fr;
             min-height: calc(100vh - 100px);
         }
-        
+
         .sidebar {
             background: #f8f9fa;
             border-right: 1px solid #e0e0e0;
             padding: 20px;
             overflow-y: auto;
         }
-        
+
         .sidebar h3 {
             margin-bottom: 15px;
             color: #333;
             font-size: 1.1em;
         }
-        
+
         .agent-card {
             background: white;
             padding: 15px;
@@ -91,56 +92,56 @@
             transition: all 0.3s;
             border: 2px solid transparent;
         }
-        
+
         .agent-card:hover {
             transform: translateX(5px);
             border-color: #667eea;
         }
-        
+
         .agent-card.active {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border-color: #667eea;
         }
-        
+
         .agent-card h4 {
             margin-bottom: 5px;
             font-size: 1em;
         }
-        
+
         .agent-card p {
             font-size: 0.85em;
             opacity: 0.8;
         }
-        
+
         .content {
             padding: 20px;
             overflow-y: auto;
         }
-        
+
         .workflow-section {
             display: none;
         }
-        
+
         .workflow-section.active {
             display: block;
         }
-        
+
         .workflow-section h2 {
             margin-bottom: 10px;
             font-size: 1.5em;
         }
-        
-        .workflow-section > p {
+
+        .workflow-section>p {
             margin-bottom: 20px;
             color: #666;
             font-size: 0.95em;
         }
-        
+
         .form-group {
             margin-bottom: 20px;
         }
-        
+
         .form-group label {
             display: block;
             margin-bottom: 8px;
@@ -148,7 +149,7 @@
             color: #333;
             font-size: 0.95em;
         }
-        
+
         .form-group input,
         .form-group textarea,
         .form-group select {
@@ -159,12 +160,12 @@
             font-size: 1em;
             font-family: inherit;
         }
-        
+
         .form-group textarea {
             min-height: 120px;
             resize: vertical;
         }
-        
+
         button {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -177,21 +178,21 @@
             transition: transform 0.2s;
             width: 100%;
         }
-        
+
         button:hover {
             transform: translateY(-2px);
         }
-        
+
         button:active {
             transform: translateY(0);
         }
-        
+
         button:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
-        
+
         .result {
             margin-top: 30px;
             padding: 20px;
@@ -200,16 +201,16 @@
             border-left: 4px solid #667eea;
             display: none;
         }
-        
+
         .result.show {
             display: block;
         }
-        
+
         .result h3 {
             margin-bottom: 15px;
             color: #667eea;
         }
-        
+
         .result pre {
             white-space: pre-wrap;
             word-wrap: break-word;
@@ -217,17 +218,17 @@
             color: #333;
             font-size: 0.95em;
         }
-        
+
         .loading {
             display: none;
             text-align: center;
             padding: 20px;
         }
-        
+
         .loading.show {
             display: block;
         }
-        
+
         .spinner {
             border: 4px solid #f3f3f3;
             border-top: 4px solid #667eea;
@@ -237,26 +238,31 @@
             animation: spin 1s linear infinite;
             margin: 0 auto 10px;
         }
-        
+
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
-        
+
         /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
             header h1 {
                 font-size: 1.5em;
             }
-            
+
             header p {
                 font-size: 0.85em;
             }
-            
+
             .main {
                 grid-template-columns: 1fr;
             }
-            
+
             .sidebar {
                 display: none;
                 position: fixed;
@@ -268,72 +274,73 @@
                 padding: 20px;
                 overflow-y: auto;
             }
-            
+
             .sidebar.mobile-open {
                 display: block;
             }
-            
+
             .mobile-menu-btn {
                 display: block;
             }
-            
+
             .content {
                 padding: 15px;
             }
-            
+
             .workflow-section h2 {
                 font-size: 1.3em;
             }
-            
+
             .form-group input,
             .form-group textarea,
             .form-group select {
-                font-size: 16px; /* Prevents zoom on iOS */
+                font-size: 16px;
+                /* Prevents zoom on iOS */
             }
-            
+
             button {
                 padding: 14px 28px;
                 font-size: 1em;
             }
-            
+
             .agent-card {
                 padding: 12px;
             }
-            
+
             .result {
                 padding: 15px;
             }
-            
+
             .result pre {
                 font-size: 0.9em;
             }
         }
-        
+
         @media (max-width: 480px) {
             header {
                 padding: 15px 10px;
             }
-            
+
             header h1 {
                 font-size: 1.3em;
             }
-            
+
             header p {
                 font-size: 0.8em;
             }
-            
+
             .content {
                 padding: 10px;
             }
-            
+
             .workflow-section h2 {
                 font-size: 1.2em;
             }
-            
+
             .form-group {
                 margin-bottom: 15px;
             }
-            
+
             .mobile-menu-btn {
                 width: 55px;
                 height: 55px;
@@ -342,105 +349,123 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
             <h1>🚀 IncrementumAI</h1>
             <p>Multi-Agent Workplace for Company Expansion</p>
         </header>
-        
+
         <div class="main">
             <div class="sidebar" id="sidebar">
                 <h3>Select Workflow</h3>
-                
+
                 <div class="agent-card active" onclick="showWorkflow('expansion')">
                     <h4>📊 Expansion Plan</h4>
                     <p>Multi-agent market analysis</p>
                 </div>
-                
+
                 <div class="agent-card" onclick="showWorkflow('outreach')">
                     <h4>📧 Draft Outreach</h4>
                     <p>Personalized messaging</p>
                 </div>
-                
+
                 <div class="agent-card" onclick="showWorkflow('content')">
                     <h4>✍️ Create Content</h4>
                     <p>Marketing materials</p>
                 </div>
-                
+
                 <div class="agent-card" onclick="showWorkflow('qualify')">
                     <h4>🎯 Qualify Lead</h4>
                     <p>Lead scoring & prioritization</p>
                 </div>
             </div>
-            
+
             <div class="content">
                 <!-- Expansion Plan Workflow -->
                 <div id="expansion" class="workflow-section active">
                     <h2>Create Expansion Plan</h2>
-                    <p>Strategy Coordinator + Market Researcher will collaborate to create a comprehensive expansion strategy.</p>
-                    
+                    <p>Strategy Coordinator + Market Researcher will collaborate to create a comprehensive expansion
+                        strategy.</p>
+
                     <div class="form-group">
                         <label>Target Market</label>
-                        <input type="text" id="expansion-market" placeholder="e.g., Europe, DACH Region, Nordic Countries">
+                        <input type="text" id="expansion-market"
+                            placeholder="e.g., Europe, DACH Region, Nordic Countries">
                     </div>
-                    
+
                     <div class="form-group">
                         <label>Industry</label>
                         <input type="text" id="expansion-industry" placeholder="e.g., SaaS, Fintech, E-commerce">
                     </div>
-                    
+
                     <button onclick="runExpansionPlan()">Generate Expansion Plan</button>
-                    
+
                     <div class="loading" id="expansion-loading">
                         <div class="spinner"></div>
                         <p>Agents are working on your expansion plan...</p>
                     </div>
-                    
+
                     <div class="result" id="expansion-result">
                         <h3>Expansion Plan</h3>
                         <pre id="expansion-output"></pre>
                     </div>
                 </div>
-                
+
                 <!-- Outreach Workflow -->
                 <div id="outreach" class="workflow-section">
                     <h2>Draft Outreach Message</h2>
                     <p>Outreach Specialist will create a personalized message tailored to your target.</p>
-                    
+
                     <div class="form-group">
                         <label>Target Persona</label>
                         <input type="text" id="outreach-persona" placeholder="e.g., SaaS Founder, Marketing Director">
                     </div>
-                    
+
                     <div class="form-group">
                         <label>Market</label>
                         <input type="text" id="outreach-market" placeholder="e.g., Germany, UK, France">
                     </div>
-                    
+
                     <div class="form-group">
                         <label>Additional Context (optional)</label>
-                        <textarea id="outreach-context" placeholder="e.g., They recently raised Series B funding..."></textarea>
+                        <textarea id="outreach-context"
+                            placeholder="e.g., They recently raised Series B funding..."></textarea>
                     </div>
-                    
+
                     <button onclick="runOutreach()">Generate Outreach Message</button>
-                    
+
                     <div class="loading" id="outreach-loading">
                         <div class="spinner"></div>
                         <p>Crafting personalized outreach...</p>
                     </div>
-                    
+
                     <div class="result" id="outreach-result">
                         <h3>Outreach Message</h3>
                         <pre id="outreach-output"></pre>
+
+                        <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #e0e0e0;">
+                            <h4 style="margin-bottom: 10px;">Send This Email</h4>
+                            <div class="form-group">
+                                <label>Recipient Email</label>
+                                <input type="email" id="send-email-to" placeholder="recipient@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Subject Line</label>
+                                <input type="text" id="send-email-subject" placeholder="Extract from message above">
+                            </div>
+                            <button onclick="sendEmail()" style="background: #28a745;">📧 Send Email</button>
+                            <div id="email-status" style="margin-top: 10px; font-weight: 600;"></div>
+                        </div>
                     </div>
                 </div>
-                
+
                 <!-- Content Creation Workflow -->
                 <div id="content" class="workflow-section">
                     <h2>Create Marketing Content</h2>
                     <p>Content Creator will produce localized, SEO-optimized marketing materials.</p>
-                    
+
                     <div class="form-group">
                         <label>Content Type</label>
                         <select id="content-type">
@@ -451,47 +476,48 @@
                             <option value="email campaign">Email Campaign</option>
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <label>Topic</label>
                         <input type="text" id="content-topic" placeholder="e.g., AI automation for SMBs">
                     </div>
-                    
+
                     <div class="form-group">
                         <label>Target Market</label>
                         <input type="text" id="content-market" placeholder="e.g., German SMBs, UK Tech Startups">
                     </div>
-                    
+
                     <button onclick="runContent()">Generate Content</button>
-                    
+
                     <div class="loading" id="content-loading">
                         <div class="spinner"></div>
                         <p>Creating content...</p>
                     </div>
-                    
+
                     <div class="result" id="content-result">
                         <h3>Generated Content</h3>
                         <pre id="content-output"></pre>
                     </div>
                 </div>
-                
+
                 <!-- Lead Qualification Workflow -->
                 <div id="qualify" class="workflow-section">
                     <h2>Qualify Lead</h2>
                     <p>Lead Qualifier will evaluate the lead using BANT framework and provide recommendations.</p>
-                    
+
                     <div class="form-group">
                         <label>Lead Information</label>
-                        <textarea id="qualify-info" placeholder="e.g., German SaaS company, 50 employees, €5M ARR..."></textarea>
+                        <textarea id="qualify-info"
+                            placeholder="e.g., German SaaS company, 50 employees, €5M ARR..."></textarea>
                     </div>
-                    
+
                     <button onclick="runQualify()">Qualify Lead</button>
-                    
+
                     <div class="loading" id="qualify-loading">
                         <div class="spinner"></div>
                         <p>Analyzing lead...</p>
                     </div>
-                    
+
                     <div class="result" id="qualify-result">
                         <h3>Lead Qualification Report</h3>
                         <pre id="qualify-output"></pre>
@@ -500,59 +526,60 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Mobile Menu Button -->
     <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-    
+
     <script>
         function toggleMobileMenu() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('mobile-open');
         }
-        
+
+
         function showWorkflow(workflowId) {
             // Hide all workflows
             document.querySelectorAll('.workflow-section').forEach(section => {
                 section.classList.remove('active');
             });
-            
+
             // Remove active from all cards
             document.querySelectorAll('.agent-card').forEach(card => {
                 card.classList.remove('active');
             });
-            
+
             // Show selected workflow
             document.getElementById(workflowId).classList.add('active');
-            
+
             // Highlight selected card
             event.currentTarget.classList.add('active');
-            
+
             // Close mobile menu
             if (window.innerWidth <= 768) {
                 document.getElementById('sidebar').classList.remove('mobile-open');
             }
         }
-        
+
         async function runExpansionPlan() {
             const market = document.getElementById('expansion-market').value;
             const industry = document.getElementById('expansion-industry').value;
-            
+
             if (!market || !industry) {
                 alert('Please fill in all fields');
                 return;
             }
-            
+
             showLoading('expansion');
-            
+
             try {
                 const response = await fetch('/api/expansion-plan', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ market, industry })
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (data.success) {
                     showResult('expansion', data.result);
                 } else {
@@ -562,28 +589,68 @@
                 showResult('expansion', 'Error: ' + error.message);
             }
         }
-        
+
+        async function sendEmail() {
+            const toEmail = document.getElementById('send-email-to').value;
+            const subject = document.getElementById('send-email-subject').value;
+            const body = document.getElementById('outreach-output').textContent;
+
+            if (!toEmail || !subject) {
+                alert('Please fill in recipient email and subject');
+                return;
+            }
+
+            const statusDiv = document.getElementById('email-status');
+            statusDiv.innerHTML = '⏳ Sending email...';
+            statusDiv.style.color = '#667eea';
+
+            try {
+                const response = await fetch('/api/send-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        to_email: toEmail,
+                        subject: subject,
+                        body: body
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    statusDiv.innerHTML = '✅ ' + data.message;
+                    statusDiv.style.color = '#28a745';
+                } else {
+                    statusDiv.innerHTML = '❌ ' + data.message;
+                    statusDiv.style.color = '#dc3545';
+                }
+            } catch (error) {
+                statusDiv.innerHTML = '❌ Error: ' + error.message;
+                statusDiv.style.color = '#dc3545';
+            }
+        }
+
         async function runOutreach() {
             const target_persona = document.getElementById('outreach-persona').value;
             const market = document.getElementById('outreach-market').value;
             const context = document.getElementById('outreach-context').value;
-            
+
             if (!target_persona || !market) {
                 alert('Please fill in required fields');
                 return;
             }
-            
+
             showLoading('outreach');
-            
+
             try {
                 const response = await fetch('/api/draft-outreach', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ target_persona, market, context })
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (data.success) {
                     showResult('outreach', data.result);
                 } else {
@@ -593,28 +660,28 @@
                 showResult('outreach', 'Error: ' + error.message);
             }
         }
-        
+
         async function runContent() {
             const content_type = document.getElementById('content-type').value;
             const topic = document.getElementById('content-topic').value;
             const market = document.getElementById('content-market').value;
-            
+
             if (!topic || !market) {
                 alert('Please fill in all fields');
                 return;
             }
-            
+
             showLoading('content');
-            
+
             try {
                 const response = await fetch('/api/create-content', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ content_type, topic, market })
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (data.success) {
                     showResult('content', data.result);
                 } else {
@@ -624,26 +691,26 @@
                 showResult('content', 'Error: ' + error.message);
             }
         }
-        
+
         async function runQualify() {
             const lead_info = document.getElementById('qualify-info').value;
-            
+
             if (!lead_info) {
                 alert('Please provide lead information');
                 return;
             }
-            
+
             showLoading('qualify');
-            
+
             try {
                 const response = await fetch('/api/qualify-lead', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ lead_info })
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (data.success) {
                     showResult('qualify', data.result);
                 } else {
@@ -653,12 +720,12 @@
                 showResult('qualify', 'Error: ' + error.message);
             }
         }
-        
+
         function showLoading(workflow) {
             document.getElementById(`${workflow}-loading`).classList.add('show');
             document.getElementById(`${workflow}-result`).classList.remove('show');
         }
-        
+
         function showResult(workflow, text) {
             document.getElementById(`${workflow}-loading`).classList.remove('show');
             document.getElementById(`${workflow}-output`).textContent = text;
@@ -666,4 +733,5 @@
         }
     </script>
 </body>
+
 </html>

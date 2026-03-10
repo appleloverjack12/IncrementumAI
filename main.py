@@ -5,6 +5,8 @@ from pydantic import BaseModel
 from crew import IncrementumCrew
 import os
 from dotenv import load_dotenv
+from pydantic import BaseModel, EmailStr
+from tools.email_sender import send_outreach_email
 
 load_dotenv()
 
@@ -30,7 +32,25 @@ class ContentRequest(BaseModel):
     content_type: str
     topic: str
     market: str
+class EmailRequest(BaseModel):
+    to_email: EmailStr
+    subject: str
+    body: str
 
+@app.post("/api/send-email")
+async def send_email(request: EmailRequest):
+    """
+    Send drafted outreach email
+    """
+    try:
+        result = send_outreach_email(
+            to_email=request.to_email,
+            subject=request.subject,
+            body=request.body
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 # API Endpoints
 @app.post("/api/expansion-plan")
 async def create_expansion_plan(request: ExpansionRequest):
